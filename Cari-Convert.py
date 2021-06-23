@@ -14,13 +14,13 @@ def main():
 
     #Read DB to return Factor
     factor = readdb(args.SourceUnit, args.TargetUnit, args.db)
-    print(f'factor is {factor}')
+    #print(f'factor is {factor}')
 
     #Perform Conversion
-    x = convert(args.Quantity, args.SourceUnit, args.TargetUnit)
+    x = convert(args.Quantity, factor)
 
     #Output Conversion
-    #print(f'{args.Quantity}  {args.SourceUnit}  is {x} many {args.TargetUnit}')
+    print(f'{args.Quantity}  {args.SourceUnit}  is {x} {args.TargetUnit}')
 
 def readdb(SourceUnit, TargetUnit, dbPath):
     db = pandaReader.read_csv(dbPath)
@@ -28,16 +28,9 @@ def readdb(SourceUnit, TargetUnit, dbPath):
     for index, row in db.iterrows():
         if row.SourceUnit == SourceUnit and row.TargetUnit == TargetUnit:
             return(row.Factor)
+        if row.SourceUnit == TargetUnit and row.TargetUnit == SourceUnit:
+            return(1.0/float(row.Factor))
 
-
-def convert(Quantity, SourceUnit, TargetUnit):
-
-    x = "42"
-
-    return(x)
-
-
-
-
-
+def convert(quantity, factor):
+    return(float(quantity) * float(factor))
 main()
