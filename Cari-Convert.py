@@ -20,7 +20,8 @@ def main():
     x = convert(args.Quantity, factor)
 
     #Output Conversion
-    print(f'{args.Quantity}  {args.SourceUnit}  is {x} {args.TargetUnit}')
+    print(f'{x} {args.TargetUnit}')
+    return(f'{x} {args.TargetUnit}')
 
 def readdb(SourceUnit, TargetUnit, dbPath):
     db = pandaReader.read_csv(dbPath)
